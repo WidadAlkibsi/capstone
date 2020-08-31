@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title> Please Search for your Desired Class </title>
+</head>
+<body>
+    <div class="container">
+        <img src="../static/logo2.png" alt="gym logo" class="logo">
+        <!-- <form action="/submit" method="POST"> -->
+            <div class="form-group">
+                <h1 style="text-align: center"> Welcome to Moves and Motions School of Dance API </h1>
+                <h3 style="text-align: center; width: 75%; margin: auto;">
+                    For instruction to use the API visit   <a href= "https://github.com/WidadAlkibsi"> this page.</a>
+                    <br> Please register to proceed 
+                    <a href= "https://dev-xoxwidad.us.auth0.com/authorize?audience=inmotions&response_type=token&client_id=OBqyY7eqpBCiccSJrjQGejeY50Z2wsI6&redirect_uri=http://127.0.0.01:5000/login-result">Login/Register Here.</a> </h3> 
+            </div>
+                <h2 style="width: 75%; margin: 29px auto auto">Our Classes</h2>
+                <div style="overflow-y: auto; max-height: 270px; width: 75%; margin: auto">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Class Name</th>
+                        <th>Class Address</th>
+                        <th>Class Instructor</th>  
+                    </tr>
+                    {% for class in classes %}
+                        <tr>
+                            <td>{{ class.class_id }}</td>
+                            <td>{{ class.class_name }}</td>
+                            <td>{{ class.address }}</td>
+                            <td>{{ class.instructor }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                <h2 style="width: 75%; margin: 29px auto auto"> Students</h2>
+                <div style="overflow-y: auto; max-height: 270px; width: 75%; margin: auto">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Class id</th>  
+                    </tr>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.student_name }}</td>
+                            <td>{{ student.class_id }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                </div>
+        </form>
+    </div>"
+</body>
+</html>

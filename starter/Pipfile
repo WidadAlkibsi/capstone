@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "*"
+
+[packages]
+psycopg2-binary = "*"
+flask = "*"
+psycopg2 = "*"
+flask-sqlalchemy = "*"
+gunicorn = "*"
+flask-cors = "*"
+
+[requires]
+python_version = "3.8"

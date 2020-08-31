@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title> Please Search for your Desired Class </title>
+</head>
+<body>
+    <div class="container">
+        <img src="../static/logo2.png" alt="gym logo" class="logo">
+        <!-- @todo - message-->
+        {% if message %}
+            <p class="message"> {{ message | safe }}</p>
+        {% endif %}
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <h3>Student Name</h3>
+                <input
+                  type="text"
+                  name="student_name"
+                  placeholder="Name of student"
+                  />
+            </div>
+            <div class="form-group">
+                <h3>Class</h3>
+                <select name="Class">
+                  <option value="">Select Class</option>
+                  <option value="Tap Class">Tap Class</option>
+                  <option value="Lyrical Class">Lyrical Class</option>
+                  <option value="Zumba Class">Zumba Class</option>
+                  <option value="Jazz Class">Jazz Class</option>
+                </select>
+                <input type="submit" value="Submit" class="btn" />
+                <h2 style="width: 75%; margin: 25px auto auto">Restaurants</h2>
+                <div style="overflow-y: auto; max-height: 275px; width: 75%; margin: auto">
+                </div>
+        </form>
+    </div>"
+</body>
+</html>
