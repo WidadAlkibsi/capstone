@@ -76,7 +76,7 @@ def create_app(test_config=None):
         except Exception:
              abort(400)
         return jsonify({'success': True,
-                    'classes': new_class.format()})
+        'classes':new_class.format() })
 
     @app.route('/students/<int:id>', methods=['PATCH'])
     @requires_auth('patch:students')
