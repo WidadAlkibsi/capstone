@@ -71,13 +71,12 @@ def create_app(test_config=None):
             name = data['class_name']
             address = data['address']
             inst = data['instructor']
-            new_class = Classes(
-                class_name=name, address=address, instructor=inst)
+            new_class = Classes(class_name=name, address=address, instructor=inst)
             new_class.insert()
         except Exception:
-            abort(400)
+             abort(400)
         return jsonify({'success': True,
-                        'classes': new_class.format()})
+                    'classes': new_class.format()})
 
     @app.route('/students/<int:id>', methods=['PATCH'])
     @requires_auth('patch:students')
@@ -110,11 +109,7 @@ def create_app(test_config=None):
             # app.logger.error('wdooodies')
             abort(404)
 
-        try:
-            clas.delete()
-
-        except Exception:
-            abort(400)
+        clas.delete()
 
         return jsonify({'success': True, 'delete': id})
 
