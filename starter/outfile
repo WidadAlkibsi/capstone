@@ -163,8 +163,7 @@ SELECT pg_catalog.setval('public.classes_class_id_seq', 7, true);
 
 
 --
--- Name: students_student_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
+-- Name: students_student_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgr
 
 SELECT pg_catalog.setval('public.students_student_id_seq', 16, true);
 
