@@ -1,4 +1,4 @@
-export DATABASE_URL="postgresql://postgres:widow1998@localhost/inmotions"
+export DATABASE_URL="postgres://phzqormpgsupml:89a5e1123bbc214d5b2724ca1ffea1734fef07317b419e476d9ca477470f6f84@ec2-54-161-150-170.compute-1.amazonaws.com:5432/d2e0bfhik9nd3p"
 export TESTING_DATABASE_URL="postgresql://postgres:widow1998@localhost/test2"
 export GITHUB_URL="https://github.com/WidadAlkibsi/capstone"
 export LOGIN_URL="https://dev-xoxwidad.us.auth0.com/authorize?audience=inmotions&response_type=token&client_id=OBqyY7eqpBCiccSJrjQGejeY50Z2wsI6&redirect_uri=http://127.0.0.01:5000/login-result"
