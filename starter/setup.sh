@@ -5,6 +5,7 @@ export LOGIN_URL="https://dev-xoxwidad.us.auth0.com/authorize?audience=inmotions
 export ALGORITHMS='RS256'
 export API_AUDIENCE='inmotions'
 
+
 # Tokens
 
 
