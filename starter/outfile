@@ -144,7 +144,7 @@ COPY public.classes (class_id, class_name, address, instructor) FROM stdin;
 
 COPY public.students (student_id, student_name, class_id) FROM stdin;
 1	Widad	1
-2	Hanouf	1
+2	Hanouf	1ps
 5	Widadxs	1
 6	Widadxs	1
 7	Widadxs	1
