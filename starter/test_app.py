@@ -9,20 +9,19 @@ from models import setup_db, Students, Classes
 
 class inmotionsTest(unittest.TestCase):
     """This class represents the trivia test case"""
+    database_path = os.environ['TESTING_DATABASE_URL']
 
     def setUp(self):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_name = "test2"
-        self.database_path = "postgresql://postgres:widow1998@localhost/test2"
         setup_db(self.app, self.database_path)
-        jwt=os.environ['JWT_ADMIN']
+        jwt = os.environ['JWT_ADMIN']
 
         self.headers = {"Authorization": "Bearer {}".format(jwt)}
-        self.new_class={"class_name":"any name","address":"tahlia", "instructor":"anyname"}
-        self.new_student={"student_name":"any name","class_id":1}
-
+        self.new_class = {"class_name": "any name",
+                          "address": "tahlia", "instructor": "anyname"}
+        self.new_student = {"student_name": "any name", "class_id": 1}
 
         # binds the app to the current context
         with self.app.app_context():
@@ -54,7 +53,6 @@ class inmotionsTest(unittest.TestCase):
     def test_delete_class(self):
         clas = self.client().delete('/classes/6', headers=self.headers)
         data = json.loads(clas.data)
-      
 
         self.assertEqual(clas.status_code, 200)
         self.assertEqual(data['success'], True)
@@ -68,21 +66,20 @@ class inmotionsTest(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def test_post_student(self):
-       
+
         stu = self.client().post('/students', json=self.new_student, headers=self.headers)
         data = json.loads(stu.data)
 
-        self.assertEqual(stu.status_code, 200) 
+        self.assertEqual(stu.status_code, 200)
         self.assertEqual(data['success'], True)
 
     def test_post_class(self):
-        
-        clas = self.client().post('/classes', json=self.new_class , headers=self.headers)
+
+        clas = self.client().post('/classes', json=self.new_class, headers=self.headers)
         data = json.loads(clas.data)
 
         self.assertEqual(clas.status_code, 200)
         self.assertEqual(data['success'], True)
-      
 
     def test_patch_student(self):
         stu = self.client().patch(

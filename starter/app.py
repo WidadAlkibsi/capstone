@@ -8,7 +8,7 @@ import unittest
 from flask_migrate import Migrate
 from models import setup_db, Students, Classes
 import logging
-from auth import requires_auth
+from auth import requires_auth, AuthError
 
 
 def create_app(test_config=None):
@@ -16,7 +16,6 @@ def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
-    
 
     @app.after_request
     def after_request(response):
@@ -26,11 +25,6 @@ def create_app(test_config=None):
                              'POST,PATCH,GET,DELETE,OPTIONS')
         return response
 
-    @app.route('/test')
-    def check():
-        return({
-            "test":"test"
-        })
     @app.route('/')
     def index():
         return render_template('index.html', students=Students.query.all(),
@@ -55,14 +49,13 @@ def create_app(test_config=None):
     @app.route('/students', methods=['POST'])
     @requires_auth('add:students')
     def post_student(payload):
-        try:
-            data = request.get_json()
-            name = data['student_name']
-            classID = data['class_id']
-            new_student = Students(student_name=name, class_id=classID)
-            new_student.insert()
-        except Exception:
-            abort(400)
+
+        data = request.get_json()
+        name = data['student_name']
+        classID = data['class_id']
+        new_student = Students(student_name=name, class_id=classID)
+        new_student.insert()
+
         return jsonify({'success': True,
                         'students': new_student.format()})
 
@@ -74,12 +67,13 @@ def create_app(test_config=None):
             name = data['class_name']
             address = data['address']
             inst = data['instructor']
-            new_class = Classes(class_name=name, address=address, instructor=inst)
+            new_class = Classes(
+                class_name=name, address=address, instructor=inst)
             new_class.insert()
         except Exception:
-             abort(400)
+            abort(400)
         return jsonify({'success': True,
-        'classes':new_class.format() })
+                        'classes': new_class.format()})
 
     @app.route('/students/<int:id>', methods=['PATCH'])
     @requires_auth('patch:students')
@@ -116,28 +110,9 @@ def create_app(test_config=None):
 
         return jsonify({'success': True, 'delete': id})
 
-    # @app.route('/submit', methods=['POST'])
-    # def submit():
-    #    if request.method =='POST':
-    #      student = request.form['student_name']
-    #      Class = request.form['Class']
-    #      if student == '' or Class== '':
-    #        return render_template('index.html', message='Please enter all fields to proceed')
-    #      return render_template('success.html')
-
     @app.route('/login-result')
     def confirm_login():
         return render_template('login-result.html')
-
-# Error Handling
-
-    # @app.errorhandler(AuthError)
-    # def authorization_error(AuthError):
-    #   return jsonify({
-    #     "success": False,
-    #     "error": AuthError.status_code,
-    #     "message": AuthError.error['description']
-    #       }), AuthError.status_code
 
     @app.errorhandler(422)
     def unprocessable(error):
@@ -147,12 +122,12 @@ def create_app(test_config=None):
             "message": "unprocessable"
         }), 422
 
-    @app.errorhandler(401)
-    def wdoodierror(error):
+    @app.errorhandler(AuthError)
+    def handle_auth_errors(error):
         return jsonify({
-            "success": False,
-            "error": 401,
-            "message": "wdoodierror"
+            'success': False,
+            'error': error.status_code,
+            'message': error.error
         }), 401
 
     @app.errorhandler(400)
