@@ -26,6 +26,11 @@ def create_app(test_config=None):
                              'POST,PATCH,GET,DELETE,OPTIONS')
         return response
 
+    @app.route('/test')
+    def check():
+        return({
+            "test":"test"
+        })
     @app.route('/')
     def index():
         return render_template('index.html', students=Students.query.all(),
